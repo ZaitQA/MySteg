@@ -22,7 +22,7 @@ char *create_mask(char *bits, char *message, size_t len)
     return mask;
 }
 
-int main(int argc, char *argv[])
+/*int main(int argc, char *argv[])
 {
     if (argc != 3)
         return 1;
@@ -30,4 +30,4 @@ int main(int argc, char *argv[])
     printf("%s\n", s);
     free(s);
     return 0;
-}
+}*/
