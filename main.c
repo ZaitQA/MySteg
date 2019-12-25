@@ -3,6 +3,7 @@
 #include "Encoding/Treatment_encoding.h"
 #include "Decoding/Treatment_decoding.h"
 #include "Display/save.h"
+#include "Difference/Treatment_difference.h"
 #include <getopt.h>
 
 void pretty_steg(void)
@@ -53,6 +54,13 @@ int decode(int decode_coeff, char *file)
     return 0;
 }
 
+int difference(char *argv, char *argv2)
+{
+   SDL_Surface *finish = show_difference(IMG_Load(argv), IMG_Load(argv2));
+   display(finish);
+   return 0;
+}
+
 int main(int argc, char *argv[])
 {
     int opt = 0;
@@ -91,4 +99,6 @@ int main(int argc, char *argv[])
         return encode(message, file);
     else if (options[5] == '1')
         return decode(decode_coeff, file);
+    else if (options[3] == '1')
+        return difference(argv[2], argv[3]);
 }
