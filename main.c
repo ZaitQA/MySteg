@@ -30,19 +30,10 @@ void pretty_steg(void)
 int encode(char *message, char *file)
 {
     display(IMG_Load(file));
-    printf("Encoding starting now :              0\%\n");
-    sleep(1);
     char *binary = string_to_binary(message);
-    printf("Message in binary form :             20\%\n");
-    sleep(1);
     struct encode *encode = binary_to_struct(binary);
-    printf("Struct created :                     50\%\n");
-    sleep(1);
     SDL_Surface *finish = encode_binary_in_wallpaper(IMG_Load(file), encode);
-    printf("Message is now in the given image :  80\%\n");
-    sleep(1);
     display(finish);
-    printf("Encoding now terminated :            100\%\n\n");
     save(finish);
     return 0;
 }
