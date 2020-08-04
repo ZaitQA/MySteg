@@ -4,5 +4,5 @@
 #include "SDL/SDL_image.h"
 
 SDL_Surface *encode_binary_in_wallpaper(SDL_Surface *surface,
-        struct encode *encode);
+        struct encode *encode, int coeff);
 

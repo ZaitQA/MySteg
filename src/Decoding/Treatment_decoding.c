@@ -15,24 +15,22 @@ void decode_wallpaper_in_string(SDL_Surface *surface, int coeff)
         for (int j = 0; j < h; j++)
         {
             Uint32 pixel = getpixel(surface, i, j);
-            char *pixel_char = calloc(32 + 1, sizeof(char));
+            char *pixel_char = calloc(129, sizeof(char));
             pixel_char = my_itoa_base(pixel, pixel_char, "01");
-            if (strcmp("1", pixel_char) == 0 && coeff == 2)
+            int len_pixel = strlen(pixel_char);
+            //printf("decoding -> %s\n", pixel_char);
+            if (len_pixel < coeff)
             {
-                letter[z++] = '0';
-                letter[z++] = '1';
-            }
-            else if (strcmp("0", pixel_char) == 0 && coeff == 2)
-            {
-                letter[z++] = '0';
-                letter[z++] = '0';
+                int zero_diff = coeff - len_pixel;
+                for (int e = 0; e < zero_diff; e++)
+                    letter[z++] = '0';
+                for (int f = 0; f < len_pixel; f++)
+                    letter[z++] = pixel_char[f];
             }
             else
             {
                 for (int a = coeff, d = 0; a != 0; a--, z++, d++)
-                {
-                    letter[z] = pixel_char[strlen(pixel_char) - a];
-                }
+                    letter[z] = pixel_char[len_pixel - a];
             }
             if (z == 8)
             {
@@ -47,6 +45,7 @@ void decode_wallpaper_in_string(SDL_Surface *surface, int coeff)
                 if (finish == verif)
                 {
                     free(letter);
+                    printf("\n");
                     return;
                 }
                 else
