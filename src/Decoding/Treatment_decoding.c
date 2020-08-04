@@ -10,6 +10,7 @@ void decode_wallpaper_in_string(SDL_Surface *surface, int coeff)
     char *letter = calloc(9, sizeof(char));
     char finish = 0;
     char verif = 0;
+    char *next = calloc(9, sizeof(char));
     for (int i = 0, z = 0; i < w; i++)
     {
         for (int j = 0; j < h; j++)
@@ -29,8 +30,30 @@ void decode_wallpaper_in_string(SDL_Surface *surface, int coeff)
             }
             else
             {
-                for (int a = coeff, d = 0; a != 0; a--, z++, d++)
-                    letter[z] = pixel_char[len_pixel - a];
+                for (int a = coeff, d = 0; a != 0; a--, d++, z++)
+                {
+                        if (z == 8)
+                        {
+                            if (!is_time)
+                            {
+                                verif = strtol(letter, 0, 2);
+                                is_time = 1;
+                                z = 0;
+                                continue;
+                            }
+                            finish = strtol(letter, 0, 2);
+                            if (finish == verif)
+                            {
+                                free(letter);
+                                printf("\n");
+                                return;
+                            }
+                            else
+                                printf("%c", finish);
+                            z = 0;
+                        }
+                        letter[z] = pixel_char[len_pixel - a];
+                }
             }
             if (z == 8)
             {
